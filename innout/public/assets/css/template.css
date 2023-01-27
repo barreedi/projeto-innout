@@ -1,0 +1,261 @@
+body {/* body e uma tegue*/
+    display: grid;/*tela significa display*/
+    grid-template-columns: 250px 1fr;/* 1fr significa os restante de espaco na tela*/
+    grid-template-rows: 64px 1fr 64px;
+    grid-template-areas: 
+        "header header"
+        "sidebar content"
+        "sidebar footer";
+    height: 100vh;
+    margin: 0;
+    background-color: #DDD;
+}
+
+body.hide-sidebar {
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+        "header"
+        "content"
+        "footer";
+}
+
+header.header {
+    grid-area: header;
+    display: flex;/*este mudou 3 risco icone*/
+    background-color: #1976d2;;/*este codigo colocou barra azul em cima cabecalho*/
+    align-items: center;/*centraliza os icones hominho*/
+    z-index: 10;
+    box-shadow: /*modifica um pouco a parte de baixo barra azul cabecalho*/
+        0 2px 4px -1px rgba(0, 0, 0, .2),
+        0 4px 4px 0px rgba(0, 0, 0, .14),
+        0 1px 10px 0px rgba(0, 0, 0, .12);
+}
+
+header.header .logo {/*logo da tela*/
+    display: flex;
+    justify-content: center;/*centralizar o logo*/
+    align-items: center;/*linha do cabecalho centralizar*/
+    color: white;
+    font-size: 2rem;
+    flex-basis: 250px;/*tamanho do icones logo*/
+    height: 100%;/*altura do logo*/
+
+
+}
+
+header.header .menu-toggle {/*para os 3 tracos esta class esta na pasta header*/
+    color: white;
+    cursor: pointer;
+}
+
+header.header .spacer {/*para mudar o icone usuario e sair*/
+    flex: 1;
+}
+
+header.header .dropdown {
+    position: relative;
+    height: 100%;
+}
+
+header.header .dropdown-button  {/*para formatar o logo usuario e sair*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.1rem;
+    color: white;
+    cursor: pointer;
+}
+
+header.header .dropdown-content {/*para marcar branco no usuario lado direito*/
+    display: none;
+    position: absolute;
+    min-width: 100%;
+    background-color: #f9f9f9; /*para menu sair*/
+    padding: 15px 0px;
+    z-index: 100;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, .2);
+}
+
+header.header .dropdown:hover .dropdown-content {/*para qd clicar no button lado direito usuario apareca o sair*/
+    display: block;
+}
+
+header.header .dropdown-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+header.header .dropdown-content a { /*esta parte faz parte do usuario no canto direito*/
+    display: flex;
+    align-items: center;/*centralizar icone de sair com botao sair*/
+    text-decoration: none;
+    color: #222;
+    padding: 7px;/*tamanho caixa botao sair*/
+    font-size: 1.1rem;/*para alinhar botao sair*/
+}
+
+header.header .dropdown-content a:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+header.header .dropdown:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+header.header .avatar {/*aqui acertar a imagem do login sair vai ter foto*/
+    height: 75%;/*tamanho da imagem*/
+    border-radius: 50%;/*acertando as bordas*/
+    margin-left: 10px;/*acertando lado esquerdo*/
+}
+
+aside.sidebar {/*sidebar menu lateral esquerdo para formatar*/
+    display: flex;
+    flex-direction: column;/*este para coluna lado esquerdo*/
+    align-items: center;/*centralizar os elementos na tela*/
+    grid-area: sidebar;
+    box-shadow: -5px 0px 25px 1px rgba(0, 0, 0, 0.4);/*defini a linha das caixa dos menu*/
+    background-color: white;
+}
+
+aside.sidebar .menu {/*para aumentar o container lado menu */
+    width: 100%;/*lado menu 100 o container*/
+    flex-grow: 1;/*colocando o 1 ele cresce o container*/
+}
+
+aside.sidebar .menu ul.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside.sidebar .menu li.nav-item {
+    margin: 0;
+    padding: 10px 10px 10px 25px;/*para da espacamento nos menu lado esquerdo*/
+}
+ 
+aside.sidebar .menu li.nav-item:hover {/* hover qd passa o mouse em cima dos menu*/
+    background-color: rgba(0, 0, 0, 0.1);/*para qd passar o mouse em cima fica cinza clarinho*/
+}
+
+
+aside.sidebar .menu li.nav-item a {/*o a é o link q esta no header li.nav-item sao as class*/
+    font-size: 1.2rem;/*esta parte das letra icones*/
+    color: #555;
+    text-decoration: none;/*none para nao ficar asonbriado*/
+}
+
+body.hide-sidebar aside.sidebar {/*sidebar e aside sao class q foi criado na pasta left.php*/
+    display: none;
+}
+
+aside.sidebar .sidebar-widgets {/*class sidebar widgets no letf.php*/
+    position: sticky;/*o sticky para sempre deixar horas trabalhadas e saida sempre a mostra mesmo qd rolar a tela*/
+    bottom: 20px;
+}
+
+aside.sidebar .sidebar-widget {
+    display: flex;/*deixa os 3 na mesma linha*/
+    align-items: center;/*vai centralizar horas trabalhadas */
+}
+
+aside.sidebar .sidebar-widget .icon {/*esta class icon esta na pasta lft*/
+    font-size: 3.5rem;
+    margin: 2px 10px 2px 0px;/*dar um espacamento horas trabalhadas*/
+}
+
+aside.sidebar .sidebar-widget .info {/*esta class icon esta na pasta lft*/
+    display: flex;
+    flex-direction: column;/*este ele deixar um debaixo do outro uma coluna*/
+    align-items: center;/*para alinhar mais*/
+    flex: 1;/*para alinhar a horas trabalhadas e saida*/
+}
+
+.division {/*esta parte pega horas trabalhadas*/
+    widows: 80%;/*largura dentro do centro*/
+    border: solid 1px #eee;/*aqui para separar os dois com uma linha*/
+}
+
+aside.sidebar .info .main {
+    font-size: 2rem;
+}
+
+main.content {/*acertando os container do menu principal*/
+    background-color: #FFF;
+    grid-area: content;
+    margin: 20px;/*margem maior da tela*/
+    padding: 20px;/*margem container um pouco afastado*/
+    border-radius: 5px;/*margem dos cantos do container principal*/
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.2);/*margem acisentada container principal*/
+}
+
+main.content .content-title {/*acertando todos os elementos na mesma linha as frases*/
+    display: flex;/*deixa retos as frases*/
+    align-items: center;/*para icone v */
+    padding-bottom: 15px;/*espacamento no icone v tem ser padding pq dentro do conteudo*/
+    border-bottom: 1px solid #CCC;/*barra debaixo registra ponto cor cinza*/
+}
+
+main.content .content-title .icon {/*class content title icon*/
+    font-size: 3rem;/*tamanho do registrar ponto*/
+}
+
+main.content .content-title h1 {/*acertando o container registrar ponto*/
+    color: #444;/*cor registrar ponto */
+    font-size: 1.8rem;/*tamanho*/
+    font-weight: 300;/*fonte fina*/
+    margin: 0;/*fonte fina*/
+}
+
+main.content .content-title h2 {/*class content title*/
+    color: #888;/*cinza claro mantenha seu ponto*/
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+footer.footer {/*footer barra do final da tela*/
+    display: flex;
+    justify-content: flex-end;/*este manda a escrita para outro lado no caso lado direito*/
+    align-items: center;/*alinha a escrita no eixo vertical*/
+    padding-right: 20px;/*para tirar um pouco da lateral lado direito*/
+    font-size: 1.2rem;/*para aumentar tamanho da fonte*/
+    grid-area: footer;
+    background-color: #222;
+    color: #FFF;
+}
+
+.record {/*class das entrada e saida */
+    font-size: 2.2rem;/*tamanho letra entrada e saida */
+}
+
+.summary-boxes {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.summary-box {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    min-width: 200px;
+}
+
+.summary-box .icon {
+    font-size: 3.5rem;
+}
+
+.summary-box .title {
+    font-size: 1.5rem;
+}
+
+.summary-box .value {
+    font-size: 2rem;
+}

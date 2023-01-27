@@ -1,0 +1,25 @@
+  body{
+    height:100vh; /* altura*/
+    display:flex;
+    justify-content:center; /* centro da pg*/
+    align-items: center;
+    background-color:#DDD;/* colocando a cor*/
+  }
+   
+
+ .form-login{ /* esta parte e o tamanho da caixa acesso email e senha*/
+  flex-basis: 450px;
+
+}
+.login-card .card-header {/* esta parte para formatar a caixa principal de login*/
+    display:flex;
+    justify-content:center;/* centralizar os boneco*/
+    align-items: center; /*deixando os bonecos no mesmo nivel*/
+    font-size:1.8rem;/*aumentar o in on out*/
+}
+
+.login-card .card-footer {/* esta parte para mudar ou formatar  o botao ENTRAR*/
+  display:flex;
+  display:flex;
+  justify-content:flex-end;
+}

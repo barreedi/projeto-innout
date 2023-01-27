@@ -1,0 +1,245 @@
+
+codigo alterei pasta Model.php
+
+ public function update() 
+    {
+        $sql = "UPDATE " . static::$tableName . " SET ";
+        foreach (static::$columns as $col) {
+            este = $sql .= " $col = " . static::getFormatedValue($this->$col) . ","; 
+            {col}
+
+loader tem q desmarcar
+//require_once(MODEL_PATH . "/{$modelName}.php");
+
+javascrip
+
+
+/*criamos um javascript  js q e simples pegamos o botao q e menutoggle*/
+/*este codigo ele vai fazer com q os 3 tracos some e aparece*/
+(function (){
+    const menuToggle = document.querySelector('.menu-toggle')/*aqui a class menu-toggle movimentar tres tracos*/
+    menuToggle.onclick = function (e) {    /*onclick para da um clique*/
+    const body = document.querySelector('body')
+    body.classList.toggle('hide-sidebar')/*aqui class hide sidebar para 3 ponto sumir*/
+}
+})()
+
+
+function activateClock() {
+    //este e espan
+    const activeClock = document.querySelector('[active-clock]')
+    if(!activeClock) return
+
+    function addOneSecond(hours, minutes, seconds) {//funcao de horas
+        const d = new Date()//data constante new date e data 
+        d.setHours(parseInt(hours))//converte as horas em inteiro o parseint
+        d.setMinutes(parseInt(minutes))
+        d.setSeconds(parseInt(seconds) + 1)//acrescenta 1 para exemplo for  59s vai para 60 e zera
+    
+        const h = `${d.getHours()}`.padStart(2, 0)//metodo padstart para definir exemplo 3 fica 03
+        const m = `${d.getMinutes()}`.padStart(2, 0)
+        const s = `${d.getSeconds()}`.padStart(2, 0)
+    
+        return `${h}:${m}:${s}`//template string
+    }
+
+    //este codigo para atualiza a cada segundo o relogio
+    setInterval(function() {
+        // '07:27:19' => ['07', '27', '19'] o codigo de baixo transforme no array as horas
+        const parts = activeClock.innerHTML.split(':')
+        activeClock.innerHTML = addOneSecond(...parts)
+    }, 1000)
+}
+activateClock()
+
+
+
+
+
+
+
+
+
+(day_records.php)
+
+session_start();//para carregar a sessao
+requireValidSession();
+
+loadModel('WorkingHours');//chamando a funcao workinghours
+
+$date = (new Datetime())->getTimestamp();//definindo a data na tela 
+$today = @strftime('%d de %B de %Y', $date);//modelo da data os batimentos efetuados hoje
+
+$user =$SESSION['user'];
+$records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));
+
+loadTemplateView('day_records', ['today'=> $today,'records' => $records]);//array sociativo records para mostrar na tela
+
+
+
+
+
+
+
+
+(leader.php)
+
+
+//o loader serve para carregar vews e  model
+
+function loadModel($modelName) {//criou funcao loadmodel
+  //require_once(MODEL_PATH . "/{$modelName}.php");//chamando o require dentro da pasta modelpath e gerando contatenando arquivo modelname.php
+
+}
+function loadView($viewName,$params = array()) {//criou funcao view e criando uma variavel params com array vazio para a view
+
+  if(count($params) > 0 ){ //se params for maior q zero 
+        foreach($params as $key => $value){//
+           if(strlen($key) > 0 ){//se a key for maior q zero
+            ${$key} = $value;//se a chave key ta direcionando uma variavel q criou no banco value
+
+         } 
+       }
+    }
+
+    require_once(VIEW_PATH . "/{$viewName}.php");//chamando o require dentro da pasta viewpath e gerando contatenando arquivo viewname.php
+  
+}
+function loadTemplateView($viewName,$params = array()) {//criou funcao view e criando uma variavel params com array vazio para a view template
+
+  if(count($params) > 0 ){ //se params for maior q zero 
+        foreach($params as $key => $value){//
+           if(strlen($key) > 0 ){//se a key for maior q zero
+            ${$key} = $value;//se a chave key ta direcionando uma variavel q criou no banco value
+
+         } 
+       }
+    }
+
+    require_once(TEMPLATE_PATH . "/header.php");//chamando o require dentro da pasta viewpath e gerando contatenando arquivo viewname.php
+    require_once(TEMPLATE_PATH . "/left.php");
+    require_once(VIEW_PATH . "/{$viewName}.php");
+    require_once(TEMPLATE_PATH . "/footer.php");
+    
+    
+}
+function renderTitle($title,$subtitle,$icon= null){
+  require_once(TEMPLATE_PATH . "/title.php");//chamando template path title.php
+
+}
+
+
+
+
+function addSuccessMsg($msg) {//para qd marcar ponto mensagem de sucesso
+    $_SESSION['message'] = [
+        'type' => 'success',//vai mostrar sucesso
+        'message' => $msg
+    ];
+}
+
+function addErrorMsg($msg) {//para qd marcar ponto mensagem de erro
+    $_SESSION['message'] = [
+        'type' => 'error',//vai mostrar erro
+        'message' => $msg
+    ];
+}
+
+
+
+
+
+
+
+    (day_records.php)
+
+    <!--esta parte pega o container de dentro tela nao e as laterais-->
+
+<main class="content">
+
+renderTitle(//para mudar a parte de resgistra ponto
+'Registrar Ponto ',
+'Mantenha seu ponto consistente',
+'icofont-check-alt');
+
+include(TEMPLATE_PATH . "/messages.php");//para mensagem passado ponto com sucesso//
+
+?>
+
+<div class="card"><!--card para sobriamento no registrar ponto e ponto consistente-->
+    <div class="card-header">
+        <h3><?=$today ?></h3><!--variavel today pra data na tela atualizada-->
+        <p class="mb-0">Os batimentos efetuados hoje</p><!--mb-0 para diminuir o container -->
+    </div>
+    <div class="card-body">
+     <div class=" d-flex m-5 justify-content-around"><!--usando d-flex m-5 para espacamento-->
+        <span class="record">Entrada 1:<?= $workingHours->time1 ??'---' ?></span><!--records time1 mostra na tela o horario -->
+        <span class="record">Saida 1: <?= $workingHours->time2 ?? '---' ?></span>
+     </div>
+     <div class=" d-flex m-5 justify-content-around"> 
+        <span class="record">Entrada 2: <?= $workingHours->time3 ??'---' ?></span>
+        <span class="record">Saida 2: <?= $workingHours->time4 ??'---' ?></span>
+     </div>
+    </div><!--esta class com d-flex justify-content-center sao todas do bootstrap-->
+      <div class="card-footer d-flex justify-content-center"><!--para criar um botao bater ponto-->
+        <a href= "innout.php" class="btn btn-success btn-lg"><!--class deixa botao verde bater ponto-->
+             <i class="icofont-check mr-1"></i>   <!--observacao repare q esta chamando no href o innout.php-->
+            Bater o Ponto
+            </a>
+      </div>
+</div>
+<form class="mt-5" action="innout.php" method="post">
+        <div class="input-group no-border">
+            <input type="text" name="forcedTime" class="form-control"
+                placeholder="Informe a hora para simular o batimento">
+            <button class="btn btn-danger ml-3">
+                Simular Ponto
+            </button>
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+day_records do controllers
+
+
+//aqui load é a funcao q ele criou loader.php assim ele conecta as pasta no caso templateview day_records.php pasta view
+loadTemplateView('day_records');
+
+//loadModel('Login');
+session_start();//abrindo um session//
+$exception = null;//so vai mostra mensg do exception se estiver null
+
+                        //se o contador post for maior q zero cria um requisicao para mudar senha
+if(count($_POST) > 0 ){ //aqui o post da pasta views login.php vai conferir login e senha se tiver entra
+    $login = new Login($_POST); // POST  E ASSOCIATIVO aqui login recebe os dados do post login e senha
+
+    try{
+        $user = $login->checkLogin();//criou user variavel se login vai checar o login se esta correto se esta logado
+        $_SESSION['user'] = $user;//colocando o usuario na sessao//
+        header("Location: day_records.php");
+        exit();
+
+    }catch(AppException $e){//aqui vai conectar com messagem erradas tipo email e senha
+
+        $exception = $e;//mostrar a mensagem
+        //echo $e->getMessage();//$e->getMessage este atributo para mostrar as mensg se usuario esta logado ou nao 
+
+    }
+}
+                   //colocou mais o exception uma chave q esta dentro da views
+//loadView('login', $_POST + ['exception'=> $exception]);//para ficar o email gravado no login coloca o POST AQUI//
