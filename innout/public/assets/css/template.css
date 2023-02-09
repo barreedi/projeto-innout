@@ -22,7 +22,7 @@ body.hide-sidebar {
 header.header {
     grid-area: header;
     display: flex;/*este mudou 3 risco icone*/
-    background-color: #1976d2;;/*este codigo colocou barra azul em cima cabecalho*/
+    background-color: #1976d2;/*este codigo colocou barra azul em cima cabecalho*/
     align-items: center;/*centraliza os icones hominho*/
     z-index: 10;
     box-shadow: /*modifica um pouco a parte de baixo barra azul cabecalho*/
@@ -230,13 +230,13 @@ footer.footer {/*footer barra do final da tela*/
     font-size: 2.2rem;/*tamanho letra entrada e saida */
 }
 
-.summary-boxes {
+.summary-boxes {/*parte tela gerencial*/
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
+    flex-wrap: wrap;/*o wrap para movimentar a tela aumentar e diminiur com celular*/
 }
 
-.summary-box {
+.summary-box {/*parte tela gerencial*/
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -248,14 +248,14 @@ footer.footer {/*footer barra do final da tela*/
     min-width: 200px;
 }
 
-.summary-box .icon {
+.summary-box .icon {/*parte tela gerencial*/
     font-size: 3.5rem;
 }
 
-.summary-box .title {
+.summary-box .title {/*parte tela gerencial*/
     font-size: 1.5rem;
 }
 
-.summary-box .value {
+.summary-box .value {/*parte tela gerencial*/
     font-size: 2rem;
 }

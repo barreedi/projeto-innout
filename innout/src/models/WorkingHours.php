@@ -52,7 +52,7 @@ class WorkingHours extends Model {//uma class jornada de trabalho
             throw new AppException("Você já fez os 4 batimentos do dia!");
         }
         $this->$timeColumn = $time;
-       // $this->worked_time = getSecondsFromDateInterval($this->getWorkedInterval());
+       $this->worked_time = getSecondsFromDateInterval($this->getWorkedInterval());
         if($this->id) { // se id estiver setado significa tem q fazer um update
             $this->update();//alterando um arquivo
         } else {
@@ -96,6 +96,61 @@ class WorkingHours extends Model {//uma class jornada de trabalho
             return $t1->add($total);
         }
     }
+    function getBalance() {
+        if(!$this->time1 && !isPastWorkday($this->work_date)) return '';
+        if($this->worked_time == DAILY_TIME) return '-';
+
+        $balance = $this->worked_time - DAILY_TIME;
+        $balanceString = getTimeStringFromSeconds(abs($balance));//abs valor absoluto
+        $sign = $this->worked_time >= DAILY_TIME ? '+' : '-';
+        return "{$sign}{$balanceString}";
+    }
+    public static function getAbsentUsers() {
+        $today = new DateTime();//para saber quem nao bateu pontos new Datetime() data de hoje
+        $result = Database::getResultFromQuery("
+            SELECT name FROM users
+            WHERE end_date is NULL 
+            AND id NOT IN (
+                SELECT user_id FROM working_hours
+                WHERE work_date = '{$today->format('Y-m-d')}'
+                AND time1 IS NOT NULL
+            )
+        ");//codigo acima pegando todos os usuarios q baterao ponto
+        
+        $absentUsers = [];
+        if($result->num_rows > 0) {//se isso for maior q zero faca
+            while($row = $result->fetch_assoc()) {
+                array_push($absentUsers, $row['name']);
+            }
+        }
+
+        return $absentUsers;//retorna os usuario q estao ausentes do dia marcacao de ponto
+    } 
+    //para todas horas trabalhadas do mes dos funcionarios
+    public static function getWorkedTimeInMonth($yearAndMonth) {//do mes
+        $startDate = (new DateTime("{$yearAndMonth}-1"))->format('Y-m-d');//datas de inicio
+        $endDate = getLastDayOfMonth($yearAndMonth)->format('Y-m-d');//datas do final
+        $result = static::getResultSetFromSelect([
+            'raw' => "work_date BETWEEN '{$startDate}' AND '{$endDate}'"//vai filtrar
+        ], "sum(worked_time) as sum");//somatoria 
+        return $result->fetch_assoc()['sum'];//retorna a soma
+    }
+
+    public static function getMonthlyReport($userId,$date){//para um relatorio mensal
+        $registries = [];
+        $startDate = getFirstDayOfMonth($date)->format('Y-m-d');
+        $endDate = getLastDayOfMonth($date)->format('Y-m-d');
+
+        $result = static::getResultSetFromSelect([
+          'user_id'=> $userId,'raw'=> "work_date between ' {$startDate}' AND '{$endDate}'"]);
+
+          if($result){
+            while($row = $result->fetch_assoc() ){
+                $registries[$row ['work_date']] = new WorkingHours($row);
+            }
+          }
+          return $registries ;
+    }
 
 
       private function getTimes() {//private nao consegue acessa na tela
@@ -108,6 +163,5 @@ class WorkingHours extends Model {//uma class jornada de trabalho
 
         return $times;
     }
-   
-    }
-//}
+}
+ 

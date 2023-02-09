@@ -17,7 +17,7 @@ if(count($_POST) > 0 ){ //aqui o post da pasta views login.php vai conferir logi
         //exit();
 
     }catch(AppException $e){//aqui vai conectar com messagem erradas tipo email e senha
-       // $exception =$e;
+        $exception =$e;
     }
 }
 

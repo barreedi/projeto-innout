@@ -3,7 +3,7 @@
 session_start();//innout serve para qd passar o ponto aparece a hora de entrada,saida
 requireValidSession();
 
-loadModel('WorkingHours');//chamou o workinghours 
+//loadModel('WorkingHours');//chamou o workinghours 
 
 $user = $_SESSION['user'];
 $records = WorkingHours::loadFromUserAndDate($user->id, date('Y-m-d'));//pega os registros do banco

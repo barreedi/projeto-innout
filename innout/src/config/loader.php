@@ -3,8 +3,7 @@
 //loader objetivo carregar view,model
 
 function loadModel($modelName) {//chama pasta model.php
-    //echo $modelName;
-    //return;
+    
     require_once(MODEL_PATH . "/{$modelName}.php");
 }
 

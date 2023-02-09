@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/icofont.min.css">
     <link rel="stylesheet" href="assets/css/login.css">
+    <title>In  N' Out </title>
     
 </head>
 <body>
@@ -20,7 +21,7 @@
        <span class = "font-weight-light">In</span>
        <span class = "font-weight-bold mr-2 ml-2">N'</span><!-- desta forma vai aparecer o nome no meio dos bonecos mr,ml ou mx para dar espaco-->
        <span class = "font-weight-light">Out</span>
-       <i class ="icofont-runner-alt-1 ml-2"></i><!-- ml-2 lado direito bonecos dar espaco-->
+       <i class ="icofont-runner-alt-1 ml-1"></i><!-- ml-2 lado direito bonecos dar espaco-->
         </div>
         <div class="card-body">
             <?php include(TEMPLATE_PATH . '/messages.php') ?><!--para mostrar mensagem de erro em cima do login tem q colocar este include aqui messages.php-->
@@ -28,8 +29,8 @@
                 <label for = "email">E-mail</label>
                 <input type="email" id="email" name="email"                                        
                 class = "form-control <?=isset($errors['email'])  ? 'is-invalid' : ''?>"
-                value = "<?= $_POST['email'] ?? ''?>"
-                placeholder ="informe o e-mail">
+                value = "<?= isset($email) ? $email : ''?>"
+                placeholder ="informe o e-mail" autofocus>
                 <div class = "invalid-feedback"><?=$errors['email'] ?>
             </div>                  <!--para manter o email gravado o value acrescentado o post ou vazio-->
             </div>                  <!--$exception->get('email')aqui para qd nao digitar o email ficar barra vermelha-->

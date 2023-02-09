@@ -3,8 +3,6 @@
 //esta parte para os desenvolvedores para ter acesso
 //limpar os batimentos de ponto na tela
 
-loadModel('WorkingHours'); //chamando class model trabalho
-
 Database::executeSQL('DELETE FROM  working_hours');//para voltar o banco no estado original
 Database::executeSQL('DELETE FROM  users WHERE id > 5');//aqui se maior q 5 id ele deleta banco de dados//
 

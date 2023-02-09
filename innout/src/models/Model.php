@@ -4,25 +4,26 @@ class Model
 {
     protected static $tableName = '';
     protected static $columns = [];
-    protected $values = [];//criando um atributo array pertence para cada instancia criada
+    protected $values = [];//criando um atributo array pertence para cada instancia criada values array vazio
 
-    function __construct($arr, $sanitize = true)
+    function __construct($arr, $sanitize = true)//sanitize para tirar todos os caracteres q nao faz sentido como nome por exemplo
     {
       $this->loadFromArray($arr, $sanitize);
     }
 
-    public function loadFromArray($arr, $sanitize = true)
+    public function loadFromArray($arr, $sanitize = true)//comando para limpar digitacao de string
     {
+
         if ($arr) { 
-            $conn = Database::getConnection();
-            foreach ($arr as $key => $value) {
-                $cleanValue = $value;
-                if ($sanitize && isset($cleanValue)) {
-                    $cleanValue = strip_tags(trim($cleanValue));
-                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
-                     $cleanValue = mysqli_real_escape_string($conn, $cleanValue);     
+            $conn = Database::getConnection();//para pegar a conectacao
+            foreach ($arr as $key => $value) {//correndo o valores 
+                $cleanValue = $value;//cleanvalue igual value
+                if ($sanitize && isset($cleanValue)) {//se santitive e cleanvalue faça
+                    $cleanValue = strip_tags(trim($cleanValue));//para tirar todos os espacos em branco
+                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);//vai pegar for digitado diferente converte em html
+                     $cleanValue = mysqli_real_escape_string($conn, $cleanValue); //vai garantir q nao vai ter mysqli ingeti 
                 }
-                $this->$key = $cleanValue;
+                $this->$key = $cleanValue;//a chave igual a cleanvalue
             }
              $conn->close();
         }
@@ -99,21 +100,19 @@ class Model
         Database::executeSQL($sql);
     }
 
-    public static function getCount($filters = []) 
+    public static function getCount($filters = []) //funcao para o contador relatorio gerencial
     {
-        $result = static::getResultSetFromSelect(
-            $filters, 
-            'count(*) as count'
+        $result = static::getResultSetFromSelect(//vai pegar o relatorio das horas trabalhada
+            $filters, 'count(*) as count'
         );
-        return $result->fetch_assoc()['count'];
+        return $result->fetch_assoc()['count'];//pega as contagem banco de dados
     }
 
     public function delete() 
     {
         static::deleteById($this->id);
     }
-
-    public static function deleteById($id) 
+    public static function deleteById($id) //excluindo pelo id do usuario da tela usuario novo usuario
     {
         $sql = "DELETE FROM " . static::$tableName . " WHERE id = {$id}";
         Database::executeSQL($sql);
@@ -126,7 +125,7 @@ class Model
             $sql .= " WHERE 1 = 1";
             foreach ($filters as $column => $value) {
                 if ($column == 'raw') {
-                    $sql .= " AND {$value}";
+                    $sql .= " AND {$value}";//aqui para sql puro
                 } else {
                     $sql .= " AND {$column} = " . static::getFormatedValue($value);
                 }

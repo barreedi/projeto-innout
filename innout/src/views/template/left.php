@@ -13,9 +13,9 @@
                     Relatório Mensal
                 </a>
             </li>
-         
+         <?php if($user->is_admin): ?><!--funcao para retirar da tela o relatorio gerencial-->
             <li class="nav-item">
-                <a href="manager_report.php">
+                <a href="manager_report.php"><!-- link para o relatorio gerencial-->
                     <i class="icofont-chart-histogram mr-2"></i>
                     Relatório Gerencial
                 </a>
@@ -26,15 +26,15 @@
                     Usuários
                 </a>
             </li>
-          
+            <?php endif ?>
         </ul>
     </nav>
     <div class="sidebar-widgets">
         <div class="sidebar-widget">
-            <i class="icon icofont-hour-glass text-primary"></i>
+            <i class="icon icofont-hour-glass text-primary"></i><!--class para cor azul das horas-->
             <div class="info">
                 <span class="main text-primary"
-                    <?= $activeClock === 'workedInterval' ? "active-clock" : ' ' ?>><!--calcular das horas-->
+                    <?= $activeClock === 'workedInterval' ? "active-clock" : ' ' ?>><!--calcula as horas trabalhadas-->
                     <?= $workedInterval ?> <!--aqui para o tempo horas trabalhada embaixo lado esq-->
                     
                 </span>

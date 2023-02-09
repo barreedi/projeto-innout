@@ -1,6 +1,6 @@
 <?php
-
-loadModel('WorkingHours');//loadmodel para carregar esta pagina
+//codigo para compara horas trabalho entrada saida
+//loadModel('WorkingHours');//loadmodel para carregar esta pagina
 
 //esta parte para comparam datas se e final de semana se dia anterior ou outro dia//
 function getDateAsDateTime($date) {// funcao date
@@ -42,4 +42,32 @@ function getDateFromInterval($interval){
 }
 function getDateFromString($str){
     return DateTimeImmutable::createFromFormat('H:i:s',$str);
+}
+function getFirstDayOfMonth($date) {
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return new DateTime(date('Y-m-1', $time));
+}
+
+function getLastDayOfMonth($date) {
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return new DateTime(date('Y-m-t', $time));
+}
+function getSecondsFromDateInterval($interval) {
+    $d1 = new DateTimeImmutable();
+    $d2 = $d1->add($interval);//vai gerar uma nova data
+    return $d2->getTimestamp() - $d1->getTimestamp();
+}
+function isPastWorkday($date) {//um dia trabalho no passado
+    return !isWeekend($date) && isBefore($date, new DateTime());
+}
+ function getTimeStringFromSeconds($seconds){//esta funcao para calcular os segundos dia d trabalho
+  $h = intdiv($seconds, 3600);//vai dividir os segundos por 3600s  q e uma hora em segundos
+  $m = intdiv($seconds % 3600, 60);//vai dividir o resto da divisao de cima com 60m
+  $s = $seconds - ($h * 3600) - ($m * 60);//calcular qt de segundos q seconds  e total ai vai subtrair com h e m
+   return sprintf('%2d:%02d:%02d', $h,$m,$s) ;//retorna formato da hora,m e s.
+}
+
+function formatDateWithLocale($date, $pattern) {//
+    $time = getDateAsDateTime($date)->getTimestamp();
+    return @strftime($pattern, $time);
 }

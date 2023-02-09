@@ -3,7 +3,7 @@ date_default_timezone_set('America/Sao_Paulo');//aqui para o horario fuso horari
 setlocale(LC_TIME,'pt_BR','pt_BR,uft-8','portuguese');//aqui para o idioma//
 
 //constantes gerais
-define('DAILY_TIME', 60 * 60 * 8) ;//PARA HORAS TRABALHADAS NO DATA_GENERATOR.PHP//
+define('DAILY_TIME', 60 * 60 * 8) ;//daily time como 8 horas d trabalho PARA HORAS TRABALHADAS NO DATA_GENERATOR.PHP//
 
 
 //pastas
@@ -13,7 +13,7 @@ define('TEMPLATE_PATH', realpath(dirname(__FILE__) . '/../views/template'));//pa
 define('CONTROLLER_PATH', realpath(dirname(__FILE__) . '/../controllers'));//vai chamar login.php na pasta controler
 define('EXCEPTION_PATH', realpath(dirname(__FILE__) . '/../exceptions'));
 
-//require_once(realpath(dirname(__FILE__) . '/database.php'));//aqui esta carregando a pasta database banco de dados
+
 
 //Arquivos banco de dados//
 require_once(realpath(dirname(__FILE__) . '/database.php'));
