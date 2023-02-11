@@ -1,6 +1,7 @@
 <?php
 
-
+<link href="https://github.com/barreedi/projeto-innout/tree/master/innout/public/assets" rel="stylesheet"/>
+  <script src="https://github.com/barreedi/projeto-innout/tree/master/innout/public/scripts.js"></script>   
 require_once(dirname(__FILE__, 2) . '/src/config/config.php');//boot da aplicacao
 
 //require_once(realpath(CONTROLLER_PATH . '/login.php'));//direcionou a pasta login.php do controler
